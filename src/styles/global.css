@@ -1,0 +1,9 @@
+body {
+    box-sizing: border-box;
+    background-color: var(--oc-body-bg, rgb(255, 255, 255));
+    color: var(--oc-text-color, rgb(0, 0, 0));
+}
+
+*, *::before, *::after {
+    box-sizing: inherit;
+}
