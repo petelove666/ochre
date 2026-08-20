@@ -1,0 +1,30 @@
+.oc-toggle {
+    display: inline-flex;
+    background-color: var(--oc-layer-bg);
+    border: 2px solid color-mix(in srgb, var(--oc-text-color) 50%, transparent);
+    border-radius: var(--oc-border-radius, 0.5rem);
+
+    input[type='radio'] {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        clip-path: inset(50%);
+        border: 0;
+        white-space: nowrap;
+    }
+}
+
+.oc-toggle__option {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    user-select: none;
+}
+
+.oc-toggle__option:has(input[type='radio']:checked) {
+    background-color: var(--oc-selected-bg);
+}
