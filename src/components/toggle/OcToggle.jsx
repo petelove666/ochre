@@ -1,10 +1,14 @@
-import "./Toggle.css";
+import { useId } from "react";
+import "./OcToggle.css";
 
-export default function Toggle({
-	toggleName = "toggle",
+export function OcToggle({
+	name,
 	options = [],
 	selectedValue,
 }) {
+	const instanceId = useId();
+	const resolvedGroupName = `${name}-${instanceId}`;
+
 	const hasExplicitSelected = options.some(
 		({ selected }) => selected !== null && selected !== undefined,
 	);
@@ -12,7 +16,7 @@ export default function Toggle({
 	return (
 		<div className="oc-toggle">
 			{options.map(({ label, value, selected }, index) => {
-				const id = `${toggleName}-${value}`;
+				const id = `${resolvedGroupName}-option-${index}`;
 				const shouldDefaultToFirst =
 					!hasExplicitSelected && selectedValue == null && index === 0;
 
@@ -21,7 +25,7 @@ export default function Toggle({
 						<input
 							id={id}
 							type="radio"
-							name={toggleName}
+							name={resolvedGroupName}
 							value={value}
 							defaultChecked={
 								selected ?? (value === selectedValue || shouldDefaultToFirst)
@@ -35,3 +39,5 @@ export default function Toggle({
 		</div>
 	);
 }
+
+export default OcToggle;
