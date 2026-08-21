@@ -1,8 +1,10 @@
 @media (prefers-color-scheme: light) {
     :root {
-        --oc-body-bg: rgb(255, 255, 255);
-        --oc-layer-bg: rgb(240, 240, 240);
-        --oc-text-color: rgb(0, 0, 0);
-        --oc-selected-bg: var(--oc-brand-accent-color, rgb(140, 140, 140));
+        --oc-body-bg: rgb(255 255 255);
+        --oc-layer-bg: rgb(234 224 207);
+        --oc-layer-secondary-bg: rgb(244 242 239);
+        --oc-text-color: rgb(0 0 0);
+        --oc-text-color-inverted: rgb(255 255 255);
+        --oc-selected-bg: var(--oc-brand-accent-color, rgb(140 140 140));
     }
 }

@@ -1,9 +1,9 @@
-import Card from './components/card/Card'
-import Toggle from './components/toggle/Toggle'
+import Card from './components/card/OcCard'
+import Toggle from './components/toggle/OcToggle'
 
 function App() {
   const densityToggle = {
-    toggleName: 'density',
+    name: 'density',
     options: [
       { label: 'condensed', value: 'a' },
       { label: 'expanded', value: 'b' },
@@ -11,7 +11,7 @@ function App() {
   }
 
   const optionsToggle = {
-    toggleName: 'options',
+    name: 'options',
     options: [
       { label: 'option 1', value: 'a' },
       { label: 'option 2', value: 'b' },

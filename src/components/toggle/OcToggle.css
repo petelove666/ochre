@@ -1,0 +1,76 @@
+.oc-toggle {
+    display: inline-flex;
+    border: 2px solid color-mix(in srgb, var(--oc-text-color) 50%, transparent);
+    border-radius: var(--oc-border-radius, 0.5rem);
+
+    input[type='radio'] {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        clip-path: inset(50%);
+        border: 0;
+        white-space: nowrap;
+
+    }
+}
+
+.oc-toggle__option {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    user-select: none;
+
+    &:first-child {
+        border-top-left-radius: calc(var(--oc-border-radius, 0.5rem) - 2px);
+        border-bottom-left-radius: calc(var(--oc-border-radius, 0.5rem) - 2px);
+    }
+
+    &:last-child {
+        border-top-right-radius: calc(var(--oc-border-radius, 0.5rem) - 2px);
+        border-bottom-right-radius: calc(var(--oc-border-radius, 0.5rem) - 2px);
+    }
+
+    &:not(:last-child) {
+        border-right: 1px solid color-mix(in srgb, var(--oc-text-color) 25%, transparent);
+    }
+}
+
+.oc-toggle__option:has(input[type='radio']:checked) {
+    background-color: var(--oc-selected-bg);
+    color: var(--oc-text-color-inverted);
+}
+
+@property --oc-toggle-hover-mix {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 0%;
+}
+
+.oc-toggle__option:has(input[type='radio']:not(:checked)) {
+    background-color: var(--oc-layer-secondary-bg);
+}
+
+.oc-toggle__option:has(input[type='radio']:not(:checked)):hover {
+    animation: oc-toggle-hover-pulse 1.5s ease-in-out infinite;
+    background-color: color-mix(in srgb, var(--oc-selected-bg) var(--oc-toggle-hover-mix), var(--oc-layer-secondary-bg));
+}
+
+@keyframes oc-toggle-hover-pulse {
+    0%, 100% {
+        --oc-toggle-hover-mix: 0%;
+    }
+    50% {
+        --oc-toggle-hover-mix: 20%;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .oc-toggle__option:has(input[type='radio']:not(:checked)):hover {
+        animation: none;
+        background-color: color-mix(in srgb, var(--oc-selected-bg) 20%, var(--oc-layer-secondary-bg));
+    }
+}
