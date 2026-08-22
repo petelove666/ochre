@@ -1,5 +1,5 @@
 @media (prefers-color-scheme: light) {
-    :root {
+    :root:not([data-oc-theme]) {
         --oc-body-bg: rgb(255 255 255);
         --oc-layer-bg: rgb(248, 242, 231);
         --oc-layer-secondary-bg: rgb(250, 250, 250);
@@ -7,9 +7,27 @@
         --oc-text-color: rgb(0 0 0);
         --oc-text-color-inverted: rgb(255 255 255);
 
+        --oc-border-color: rgb(90 90 90);
+
         --oc-selected-bg: var(--oc-brand-accent-color, rgb(140 140 140));
 
         --oc-disabled-bg: rgb(190 190 190);
         --oc-disabled-text: rgb(65 65 65);
     }
+}
+
+:root[data-oc-theme='light'] {
+    --oc-body-bg: rgb(255 255 255);
+    --oc-layer-bg: rgb(248, 242, 231);
+    --oc-layer-secondary-bg: rgb(250, 250, 250);
+
+    --oc-text-color: rgb(0 0 0);
+    --oc-text-color-inverted: rgb(255 255 255);
+
+    --oc-border-color: rgb(90 90 90);
+
+    --oc-selected-bg: var(--oc-brand-accent-color, rgb(140 140 140));
+
+    --oc-disabled-bg: rgb(190 190 190);
+    --oc-disabled-text: rgb(65 65 65);
 }

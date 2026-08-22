@@ -8,6 +8,10 @@
 .oc-button:not(:disabled) {
     --ocButtonBackground: var(--oc-selected-bg, rgb(0 0 0));
     --ocButtonText: var(--oc-text-color-inverted, rgb(255 255 255));
+
+    &:hover {
+        animation: oc-button-bounce 1.25s ease-in-out infinite;
+    }
 }
 
 .oc-button {
@@ -44,8 +48,4 @@
     .oc-button {
         animation: none;
     }
-}
-
-.oc-button:hover {
-    animation: oc-button-bounce 1.25s ease-in-out infinite;
 }

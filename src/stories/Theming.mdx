@@ -37,9 +37,13 @@ A brand theme sets tokens, eg. `--oc-brand-accent-color` which are then used in 
 ```css
 /* theme/brand1/light.css */
 @media (prefers-color-scheme: light) {
-  :root {
+    :root:not([data-oc-theme]) {
+        --oc-brand-accent-color: rgb(210 165 60);
+    }
+}
+
+:root[data-oc-theme='light'] {
     --oc-brand-accent-color: rgb(210 165 60);
-  }
 }
 ```
 
@@ -58,23 +62,50 @@ To switch the active brand, change which brand folder is imported in [main.jsx](
 
 ## Light / dark mode
 
-Light and dark tokens are defined using the `prefers-color-scheme` media query, so the theme automatically follows the user's OS/browser setting — there is currently no manual light/dark toggle in the app.
+Light and dark tokens are defined using the `prefers-color-scheme` media query, so by default the theme follows the user's OS/browser setting — no toggle required.
 
 ```css
 /* theme/tokens/dark.css */
 @media (prefers-color-scheme: dark) {
-  :root {
+    :root:not([data-oc-theme]) {
+        --oc-body-bg: rgb(0 0 0);
+        --oc-layer-bg: rgb(50 50 50);
+        --oc-layer-secondary-bg: rgb(30 30 30);
+    }
+}
+
+:root[data-oc-theme='dark'] {
     --oc-body-bg: rgb(0 0 0);
     --oc-layer-bg: rgb(50 50 50);
     --oc-layer-secondary-bg: rgb(30 30 30);
-    --oc-text-color: rgb(255 255 255);
-    --oc-text-color-inverted: rgb(0 0 0);
-    --oc-selected-bg: var(--oc-brand-accent-color, rgb(100 100 100));
-  }
 }
 ```
 
-Both `theme/tokens/light.css` and `theme/tokens/dark.css` are imported at the same time; whichever media query matches the current color scheme wins.
+Both `theme/tokens/light.css` and `theme/tokens/dark.css` are imported at the same time; whichever media query matches the current color scheme wins, unless it's explicitly overridden (see below).
+
+### Forcing a theme with `data-oc-theme`
+
+Every token file also defines a `:root[data-oc-theme="light"]` / `:root[data-oc-theme="dark"]` block that mirrors its media query block, and the media query block itself is scoped with `:not([data-oc-theme])`. This means setting a `data-oc-theme="light"` or `data-oc-theme="dark"` attribute on the `<html>` element forces that theme regardless of the OS setting; removing the attribute falls back to `prefers-color-scheme` again.
+
+Storybook uses this to provide a **Theme** toolbar control (System / Light / Dark) in [.storybook/preview.jsx](../.storybook/preview.jsx):
+
+```jsx
+const withTheme = (Story, context) => {
+  const theme = context.globals.theme || 'system';
+
+  useEffect(() => {
+    if (theme === 'system') {
+      document.documentElement.removeAttribute('data-oc-theme');
+    } else {
+      document.documentElement.setAttribute('data-oc-theme', theme);
+    }
+  }, [theme]);
+
+  return <Story />;
+};
+```
+
+The same `data-oc-theme` attribute can be used outside Storybook (e.g. in the app) to let a user override their system preference.
 
 ## Design tokens reference
 

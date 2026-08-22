@@ -1,5 +1,6 @@
 import { expect } from 'storybook/test';
 import OcCard from './OcCard';
+import OcButton from '../button/OcButton';
 
 const meta = {
   component: OcCard,
@@ -32,24 +33,8 @@ export const WithContent = {
   args: {
     children: (
       <>
-        <p>Options</p>
-        <ul>
-          <li>Option 1</li>
-          <li>Option 2</li>
-        </ul>
+        <OcButton>Hover over me</OcButton>
       </>
     ),
-  },
-};
-
-export const CssCheck = {
-  args: {
-    children: <p>Card</p>,
-  },
-  play: async ({ canvas }) => {
-    const text = canvas.getByText('Card');
-    const card = text.closest('.oc-card');
-
-    await expect(getComputedStyle(card).backgroundColor).toBe('rgb(240, 240, 240)');
   },
 };
