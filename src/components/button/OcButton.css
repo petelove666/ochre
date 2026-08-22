@@ -1,17 +1,32 @@
+.oc-button:disabled {
+    --ocButtonBackground: var(--oc-disabled-bg, rgb(190 190 190));
+    --ocButtonText: var(--oc-disabled-text, rgb(65 65 65));
+    cursor: not-allowed;
+    animation: none;
+}
+
+.oc-button:not(:disabled) {
+    --ocButtonBackground: var(--oc-selected-bg, rgb(0 0 0));
+    --ocButtonText: var(--oc-text-color-inverted, rgb(255 255 255));
+
+    &:hover {
+        animation: oc-button-bounce 1.25s ease-in-out infinite;
+    }
+}
+
 .oc-button {
     position: relative;
     overflow: hidden;
-    background-color: var(--oc-selected-bg);
-    color: var(--oc-text-color-inverted);
     border-top: 0;
     border-bottom: 0;
     border-bottom: 0.25rem solid color-mix(in srgb, var(--oc-text-color) 50%, transparent);
     border-right: 0.25rem solid color-mix(in srgb, var(--oc-text-color) 50%, transparent);
     border-radius: var(--oc-border-radius, 0.5rem);
     padding: 1rem 1.5rem 0.75rem;
+    background-color: var(--ocButtonBackground);
+    color: var(--ocButtonText);
     font: inherit;
     cursor: pointer;
-    animation: oc-button-bounce 2.5s ease-in-out infinite;
 }
 
 @keyframes oc-button-bounce {
@@ -33,14 +48,4 @@
     .oc-button {
         animation: none;
     }
-}
-
-.oc-button:disabled {
-    cursor: not-allowed;
-    opacity: 0.5;
-    animation: none;
-}
-
-.oc-button:hover {
-    animation-duration: 1s;
 }

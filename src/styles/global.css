@@ -1,8 +1,8 @@
 body {
     box-sizing: border-box;
-    background-color: var(--oc-body-bg, rgb(255, 255, 255));
+    background-color: var(--oc-body-bg, rgb(255 255 255));
     font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    color: var(--oc-text-color, rgb(0, 0, 0));
+    color: var(--oc-text-color, rgb(0 0 0));
 }
 
 *, *::before, *::after {

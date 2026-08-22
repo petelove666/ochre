@@ -8,7 +8,7 @@ const meta = {
     docs: {
       description: {
         component:
-          'A simple button for triggering actions.',
+          'A simple button for triggering actions, utilising a hover animation.',
       },
     },
   },
