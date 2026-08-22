@@ -1,0 +1,27 @@
+import OcComponent from './OcComponent';
+
+const meta = {
+  component: OcComponent,
+  tags: ['autodocs'],
+  parameters: {
+    docs: {
+      description: {
+        component: 'Describe what this component is for.',
+      },
+    },
+  },
+  argTypes: {
+    children: {
+      description: 'Content rendered inside the component.',
+      control: 'text',
+    },
+  },
+};
+
+export default meta;
+
+export const Default = {
+  args: {
+    children: 'Example content',
+  },
+};
