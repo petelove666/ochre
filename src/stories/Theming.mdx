@@ -1,0 +1,111 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+
+<Meta title="Foundations/Theming" />
+
+# Theming
+
+Ochre components are styled entirely with plain CSS and [CSS custom properties](https://developer.mozilla.org/en-US/docs/Web/CSS/--*) (design tokens).
+
+Theme stylesheets are imported once, in a fixed order, in the app entry point ([src/main.jsx](../src/main.jsx)) and in Storybook's preview ([.storybook/preview.jsx](../.storybook/preview.jsx)):
+
+```js
+import './theme/brand2/light.css'
+import './theme/brand2/dark.css'
+import './theme/tokens/light.css'
+import './theme/tokens/dark.css'
+import './theme/tokens/global.css'
+import './styles/global.css'
+```
+
+Each file contributes a different layer, applied in this order:
+
+1. **Brand** — `theme/brand{n}/light.css`, `theme/brand{n}/dark.css`
+   Sets the brand specific colours e.g. accent colour
+2. **Tokens (color scheme)** — `theme/tokens/light.css`, `theme/tokens/dark.css`
+   Sets semantic color tokens for light/dark mode.
+3. **Tokens (global)** — `theme/tokens/global.css`
+   Sets tokens that don't change with brand or light/dark scheme (e.g. border radius).
+4. **Base styles** — `styles/global.css`
+   Applies styles to base HTML elements (`body`, box-sizing reset).
+
+Component stylesheets (e.g. [OcButton.css](../src/components/button/OcButton.css)) never hard-code colors — they only reference `var(--oc-*)` tokens, so swapping a theme file changes every component automatically.
+
+## Brand themes
+
+A brand theme sets tokens, eg. `--oc-brand-accent-color` which are then used in the respective light/dark schemes, e.g. `--oc-selected-bg` in the token layer uses '--oc-brand-accent-color', so the brand color flows through to any component that uses `--oc-selected-bg` (buttons, toggles, etc.).
+
+```css
+/* theme/brand1/light.css */
+@media (prefers-color-scheme: light) {
+  :root {
+    --oc-brand-accent-color: rgb(210 165 60);
+  }
+}
+```
+
+Two brands currently ship with Ochre:
+
+- **brand1** — gold/ochre accent (`rgb(210 165 60)` light / `rgb(156 132 77)` dark)
+- **brand2** — pink/magenta accent (`rgb(210 56 118)` light / `rgb(132 65 91)` dark)
+
+To switch the active brand, change which brand folder is imported in [main.jsx](../src/main.jsx) and [.storybook/preview.jsx](../.storybook/preview.jsx) — e.g. replace `theme/brand2/*` with `theme/brand1/*`.
+
+### Adding a new brand
+
+1. Create a new folder under `src/theme/`, e.g. `src/theme/brand3/`.
+2. Add a `light.css` and `dark.css`, each wrapped in the matching `prefers-color-scheme` media query, setting the relevant tokens
+3. Import both files wherever the theme stack is assembled (`src/main.jsx`, `.storybook/preview.jsx`).
+
+## Light / dark mode
+
+Light and dark tokens are defined using the `prefers-color-scheme` media query, so the theme automatically follows the user's OS/browser setting — there is currently no manual light/dark toggle in the app.
+
+```css
+/* theme/tokens/dark.css */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --oc-body-bg: rgb(0 0 0);
+    --oc-layer-bg: rgb(50 50 50);
+    --oc-layer-secondary-bg: rgb(30 30 30);
+    --oc-text-color: rgb(255 255 255);
+    --oc-text-color-inverted: rgb(0 0 0);
+    --oc-selected-bg: var(--oc-brand-accent-color, rgb(100 100 100));
+  }
+}
+```
+
+Both `theme/tokens/light.css` and `theme/tokens/dark.css` are imported at the same time; whichever media query matches the current color scheme wins.
+
+## Design tokens reference
+
+- **`--oc-brand-accent-color`** — defined in `theme/brand{n}/light.css`, `theme/brand{n}/dark.css`
+  Brand accent color for the active color scheme.
+- **`--oc-body-bg`** — defined in `theme/tokens/light.css`, `theme/tokens/dark.css`
+  Page/body background color.
+- **`--oc-layer-bg`** — defined in `theme/tokens/light.css`, `theme/tokens/dark.css`
+  Background for elevated surfaces (e.g. `OcCard`).
+- **`--oc-layer-secondary-bg`** — defined in `theme/tokens/light.css`, `theme/tokens/dark.css`
+  Background for secondary/nested surfaces (e.g. unselected `OcToggle` options).
+- **`--oc-text-color`** — defined in `theme/tokens/light.css`, `theme/tokens/dark.css`
+  Default text/foreground color.
+- **`--oc-text-color-inverted`** — defined in `theme/tokens/light.css`, `theme/tokens/dark.css`
+  Text color used on top of dark areas (light mode) or light areas (dark mode)
+- **`--oc-selected-bg`** — defined in `theme/tokens/light.css`, `theme/tokens/dark.css`
+  Background for selected/active states.
+- **`--oc-border-radius`** — defined in `theme/tokens/global.css`
+  Shared corner radius used across components.
+
+## Using tokens in components
+
+Component styles should always read tokens through `var()` with a hard-coded fallback, so components remain usable even if the theme layer hasn't loaded:
+
+```css
+.oc-card {
+   background-color: var(--oc-layer-bg, rgb(200 200 200));
+   border: 2px solid color-mix(in srgb, var(--oc-text-color, rgb(0 0 0)) 50%, transparent);
+   border-radius: var(--oc-border-radius, 0.5rem);
+   padding: 1rem;
+}
+```
+
+When adding a new component, prefer reusing existing tokens above over introducing new ones. If a new token is genuinely needed, add it to `theme/tokens/global.css` (scheme-independent) or both `theme/tokens/light.css` and `theme/tokens/dark.css` (scheme-dependent), following the existing naming convention (`--oc-<purpose>`).

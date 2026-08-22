@@ -24,7 +24,7 @@ export default meta;
 
 export const Default = {
   args: {
-    children: <p>Density</p>,
+    children: <p>Card</p>,
   },
 };
 
@@ -44,10 +44,10 @@ export const WithContent = {
 
 export const CssCheck = {
   args: {
-    children: <p>Density</p>,
+    children: <p>Card</p>,
   },
   play: async ({ canvas }) => {
-    const text = canvas.getByText('Density');
+    const text = canvas.getByText('Card');
     const card = text.closest('.oc-card');
 
     await expect(getComputedStyle(card).backgroundColor).toBe('rgb(240, 240, 240)');

@@ -41,7 +41,6 @@
 
 .oc-toggle__option:has(input[type='radio']:checked) {
     background-color: var(--oc-selected-bg);
-    color: var(--oc-text-color-inverted);
 }
 
 @property --oc-toggle-hover-mix {
@@ -55,7 +54,7 @@
 }
 
 .oc-toggle__option:has(input[type='radio']:not(:checked)):hover {
-    animation: oc-toggle-hover-pulse 1.5s ease-in-out infinite;
+    animation: oc-toggle-hover-pulse 1s ease-in-out infinite;
     background-color: color-mix(in srgb, var(--oc-selected-bg) var(--oc-toggle-hover-mix), var(--oc-layer-secondary-bg));
 }
 
@@ -64,13 +63,13 @@
         --oc-toggle-hover-mix: 0%;
     }
     50% {
-        --oc-toggle-hover-mix: 20%;
+        --oc-toggle-hover-mix: 12%;
     }
 }
 
 @media (prefers-reduced-motion: reduce) {
     .oc-toggle__option:has(input[type='radio']:not(:checked)):hover {
         animation: none;
-        background-color: color-mix(in srgb, var(--oc-selected-bg) 20%, var(--oc-layer-secondary-bg));
+        background-color: color-mix(in srgb, var(--oc-selected-bg) 12%, var(--oc-layer-secondary-bg));
     }
 }
