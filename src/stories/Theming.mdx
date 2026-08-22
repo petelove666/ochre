@@ -138,10 +138,10 @@ Component styles should always read tokens through `var()` with a hard-coded fal
 
 ```css
 .oc-card {
-   background-color: var(--oc-layer-bg, rgb(200 200 200));
-   border: 2px solid color-mix(in srgb, var(--oc-text-color, rgb(0 0 0)) 50%, transparent);
-   border-radius: var(--oc-border-radius, 0.5rem);
-   padding: 1rem;
+    background-color: var(--oc-layer-bg, rgb(200 200 200));
+    border: 1px solid var(--oc-border-color, rgb(130 130 130));
+    border-radius: var(--oc-border-radius, 0.5rem);
+    padding: 1rem;
 }
 ```
 
