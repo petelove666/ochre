@@ -1,0 +1,40 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+
+<Meta title="Introduction" />
+
+# Ochre
+
+Ochre is a React based UI library intended to demonstrate my approach to design systems.
+
+Most design systems I have built have used native web components. These components however are written in React.
+
+-- Pete Love
+
+
+## What's in this Storybook
+
+- **Foundations** — theming, design tokens, light/dark mode, and brand customization. Start with the [Theming](/docs/foundations-theming--docs) page to understand how styling works before building new components.
+- **components** — every Ochre component (`OcButton`, `OcCard`, `OcToggle`, …) with interactive controls, usage examples, and an auto-generated props table.
+
+Use the **Theme** toolbar control above (System / Light / Dark) to preview any story or docs page in either color scheme regardless of your OS setting.
+
+## Getting started
+
+Import a component directly from its folder under `src/components`:
+
+```jsx
+import OcButton from './components/button/OcButton'
+import OcCard from './components/card/OcCard'
+import OcToggle from './components/toggle/OcToggle'
+```
+
+Theme stylesheets must be imported once, before any component renders (see `src/main.jsx` for the exact order):
+
+```js
+import './theme/brand2/light.css'
+import './theme/brand2/dark.css'
+import './theme/tokens/light.css'
+import './theme/tokens/dark.css'
+import './theme/tokens/global.css'
+import './styles/global.css'
+```

@@ -41,6 +41,11 @@ const preview = {
     theme: 'system',
   },
   parameters: {
+    options: {
+      storySort: {
+        order: ['Introduction', 'Foundations', ['Theming'], 'components', 'Example'],
+      },
+    },
     controls: {
       matchers: {
         color: /(background|color)$/i,

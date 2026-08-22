@@ -1,7 +1,10 @@
 .oc-toggle {
     display: inline-flex;
-    border: 2px solid var(--oc-border-color, rgb(130 130 130));
+    gap: 0.5rem;
+    border: 1px solid var(--oc-border-color, rgb(130 130 130));
     border-radius: var(--oc-border-radius, 0.5rem);
+    padding:0.5rem;
+    background-color: var(--oc-layer-secondary-bg);
 
     input[type='radio'] {
         position: absolute;
@@ -23,20 +26,7 @@
     padding: 0.5rem 1rem;
     cursor: pointer;
     user-select: none;
-
-    &:first-child {
-        border-top-left-radius: calc(var(--oc-border-radius, 0.5rem) - 2px);
-        border-bottom-left-radius: calc(var(--oc-border-radius, 0.5rem) - 2px);
-    }
-
-    &:last-child {
-        border-top-right-radius: calc(var(--oc-border-radius, 0.5rem) - 2px);
-        border-bottom-right-radius: calc(var(--oc-border-radius, 0.5rem) - 2px);
-    }
-
-    &:not(:last-child) {
-        border-right: 1px solid var(--oc-border-color, rgb(130 130 130));
-    }
+    border-radius: var(--oc-border-radius, 0.5rem);
 }
 
 .oc-toggle__option:has(input[type='radio']:checked) {
@@ -50,7 +40,7 @@
 }
 
 .oc-toggle__option:has(input[type='radio']:not(:checked)) {
-    background-color: var(--oc-layer-secondary-bg);
+    background-color: var(--oc-body-bg, rgb(255 255 255));
 }
 
 .oc-toggle__option:has(input[type='radio']:not(:checked)):hover {

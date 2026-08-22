@@ -7,7 +7,7 @@
         --oc-text-color: rgb(255 255 255);
         --oc-text-color-inverted: rgb(0 0 0);
 
-        --oc-border-color: rgb(130 130 130);
+        --oc-border-color: rgb(90 90 90);
 
         --oc-selected-bg: var(--oc-brand-accent-color, rgb(100 100 100));
 
@@ -24,7 +24,7 @@
     --oc-text-color: rgb(255 255 255);
     --oc-text-color-inverted: rgb(0 0 0);
 
-    --oc-border-color: rgb(130 130 130);
+    --oc-border-color: rgb(90 90 90);
 
     --oc-selected-bg: var(--oc-brand-accent-color, rgb(100 100 100));
 
