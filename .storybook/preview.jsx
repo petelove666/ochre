@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
-import '../src/theme/brand1/light.css';
-import '../src/theme/brand1/dark.css';
-import '../src/theme/brand2/light.css';
-import '../src/theme/brand2/dark.css';
+import '../src/theme/brands/ochre/light.css';
+import '../src/theme/brands/ochre/dark.css';
+import '../src/theme/brands/alternative/light.css';
+import '../src/theme/brands/alternative/dark.css';
 import '../src/theme/tokens/light.css';
 import '../src/theme/tokens/dark.css';
 import '../src/theme/tokens/global.css';
@@ -10,7 +10,7 @@ import '../src/styles/global.css';
 
 const withTheme = (Story, context) => {
   const theme = context.globals.theme || 'system';
-  const brand = context.globals.brand || 'brand1';
+  const brand = context.globals.brand || 'ochre';
 
   useEffect(() => {
     if (theme === 'system') {
@@ -53,8 +53,8 @@ const preview = {
         title: 'Brand',
         icon: 'paintbrush',
         items: [
-          { value: 'brand1', title: 'Ochre brand' },
-          { value: 'brand2', title: 'Alternative brand' },
+          { value: 'ochre', title: 'Ochre' },
+          { value: 'alternative', title: 'Alternative' },
           { value: 'nobrand', title: 'No brand' },
         ],
         dynamicTitle: true,
@@ -63,7 +63,7 @@ const preview = {
   },
   initialGlobals: {
     theme: 'light',
-    brand: 'brand1',
+    brand: 'ochre',
   },
   parameters: {
     options: {

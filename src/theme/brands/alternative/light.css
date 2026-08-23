@@ -1,5 +1,5 @@
 @media (prefers-color-scheme: light) {
-    :root[data-oc-brand='brand2']:not([data-oc-theme]) {
+    :root[data-oc-brand='alternative']:not([data-oc-theme]) {
         --oc-brand-accent-color: rgb(210 56 118);
         --oc-brand-accent-color-text: rgb(255 255 255);
 
@@ -7,7 +7,7 @@
     }
 }
 
-:root[data-oc-theme='light'][data-oc-brand='brand2'] {
+:root[data-oc-theme='light'][data-oc-brand='alternative'] {
     --oc-brand-accent-color: rgb(210 56 118);
     --oc-brand-accent-color-text: rgb(255 255 255);
 
