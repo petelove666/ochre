@@ -4,7 +4,9 @@
 
     --oc-border-radius: 0.5rem;
 
-    --oc-layer-bg: color-mix(in srgb, var(--oc-brand-accent-color, rgb(0 0 0)) 8%, var(--oc-body-bg));
+    --oc-layer-bg: color-mix(in srgb, var(--oc-brand-accent-color, rgb(0 0 0)) 7%, var(--oc-body-bg));
     --oc-layer-secondary-bg: color-mix(in srgb, var(--oc-brand-accent-color, rgb(0 0 0)) 4%, var(--oc-body-bg));
     --oc-layer-secondary-bg-hover: color-mix(in srgb, var(--oc-brand-accent-color, rgb(0 0 0)) 2%, var(--oc-body-bg));
+
+    --oc-focus-color: var(--oc-brand-focus-color, rgb(51, 92, 205));
 }

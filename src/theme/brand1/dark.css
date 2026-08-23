@@ -2,10 +2,14 @@
     :root[data-oc-brand='brand1']:not([data-oc-theme]) {
         --oc-brand-accent-color: rgb(156 132 77);
         --oc-brand-accent-color-text: rgb(0 0 0);
+
+        --oc-brand-focus-color: rgb(77, 115, 156);
     }
 }
 
 :root[data-oc-theme='dark'][data-oc-brand='brand1'] {
     --oc-brand-accent-color: rgb(156 132 77);
     --oc-brand-accent-color-text: rgb(0 0 0);
+
+    --oc-brand-focus-color: rgb(77, 115, 156);
 }
