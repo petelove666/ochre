@@ -1,11 +1,15 @@
 @media (prefers-color-scheme: dark) {
-    :root[data-oc-brand='brand2']:not([data-oc-theme]) {
+    :root[data-oc-brand='alternative']:not([data-oc-theme]) {
         --oc-brand-accent-color: rgb(146 72 101);
         --oc-brand-accent-color-text: rgb(255 255 255);
+
+        --oc-brand-focus-color: rgb(70, 144, 126);
     }
 }
 
-:root[data-oc-theme='dark'][data-oc-brand='brand2'] {
+:root[data-oc-theme='dark'][data-oc-brand='alternative'] {
     --oc-brand-accent-color: rgb(146 72 101);
     --oc-brand-accent-color-text: rgb(255 255 255);
+
+    --oc-brand-focus-color: rgb(70, 144, 126);
 }

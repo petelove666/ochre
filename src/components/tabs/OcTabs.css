@@ -1,0 +1,21 @@
+.oc-tabs__tab[aria-selected="true"] {
+    --ocTabsSelectedTabBorderColor: var(--oc-primary-color);
+    --ocTabsSelectedTabTextColor: var(--oc-text-color);
+}
+
+.oc-tabs__list {
+    display: flex;
+    gap: 0.25rem;
+}
+
+.oc-tabs__tab {
+    appearance: none;
+    background: none;
+    border: none;
+    border-bottom: 2px solid var(--ocTabsSelectedTabBorderColor, transparent);
+    margin-bottom: -1px;
+    padding: 0.5rem 1rem;
+    font: inherit;
+    color: var(--ocTabsSelectedTabTextColor, var(--oc-text-color-muted));
+    cursor: pointer;
+}

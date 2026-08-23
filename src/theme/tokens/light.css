@@ -3,6 +3,7 @@
         --oc-body-bg: rgb(255 255 255);
 
         --oc-text-color: rgb(0 0 0);
+        --oc-text-color-muted: rgb(80 80 80);
         --oc-text-color-inverted: rgb(255 255 255);
 
         --oc-border-color: rgb(160 160 160);
@@ -19,6 +20,7 @@
     --oc-body-bg: rgb(255 255 255);
 
     --oc-text-color: rgb(0 0 0);
+    --oc-text-color-muted: rgb(80 80 80);
     --oc-text-color-inverted: rgb(255 255 255);
 
     --oc-border-color: rgb(160 160 160);

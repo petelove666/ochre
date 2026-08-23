@@ -9,10 +9,10 @@ Ochre components are styled entirely with plain CSS and [CSS custom properties](
 Theme stylesheets are imported once, in a fixed order, in the app entry point ([src/main.jsx](../src/main.jsx)) and in Storybook's preview ([.storybook/preview.jsx](../.storybook/preview.jsx)):
 
 ```js
-import './theme/brand1/light.css'
-import './theme/brand1/dark.css'
-import './theme/brand2/light.css'
-import './theme/brand2/dark.css'
+import './theme/brands/ochre/light.css'
+import './theme/brands/ochre/dark.css'
+import './theme/brands/alternative/light.css'
+import './theme/brands/alternative/dark.css'
 import './theme/tokens/light.css'
 import './theme/tokens/dark.css'
 import './theme/tokens/global.css'
@@ -21,7 +21,7 @@ import './styles/global.css'
 
 Each file contributes a different layer, applied in this order:
 
-1. **Brand** — `theme/brand{n}/light.css`, `theme/brand{n}/dark.css`
+1. **Brand** — `theme/<brand-name>/light.css`, `theme/<brand-name>/dark.css`
    Sets the brand specific colours e.g. accent colour
 2. **Tokens (color scheme)** — `theme/tokens/light.css`, `theme/tokens/dark.css`
    Sets semantic color tokens for light/dark mode.
@@ -39,15 +39,15 @@ A brand theme sets tokens, eg. `--oc-brand-accent-color` which are then used in 
 Both brands' CSS files are imported at the same time; a `data-oc-brand` attribute on `<html>` selects which one is active — see "Switching brands with data-oc-brand" below.
 
 ```css
-/* theme/brand1/light.css */
+/* theme/brands/ochre/light.css */
 @media (prefers-color-scheme: light) {
-    :root[data-oc-brand='brand1']:not([data-oc-theme]) {
+    :root[data-oc-brand='ochre']:not([data-oc-theme]) {
         --oc-brand-accent-color: rgb(210 165 60);
         --oc-brand-accent-color-text: rgb(0 0 0);
     }
 }
 
-:root[data-oc-theme='light'][data-oc-brand='brand1'] {
+:root[data-oc-theme='light'][data-oc-brand='ochre'] {
     --oc-brand-accent-color: rgb(210 165 60);
     --oc-brand-accent-color-text: rgb(0 0 0);
 }
@@ -55,17 +55,17 @@ Both brands' CSS files are imported at the same time; a `data-oc-brand` attribut
 
 Two brands currently ship with Ochre:
 
-- **brand1** — gold/ochre accent (`rgb(210 165 60)` light / `rgb(156 132 77)` dark)
-- **brand2** — pink/magenta accent (`rgb(210 56 118)` light / `rgb(146 72 101)` dark)
+- **ochre** — gold/ochre accent (`rgb(210 165 60)` light / `rgb(156 132 77)` dark)
+- **alternative** — pink/magenta accent (`rgb(210 56 118)` light / `rgb(146 72 101)` dark)
 
-Both brands only apply when `data-oc-brand` is set to their matching value (`'brand1'`/`'brand2'`); if the attribute is absent, no brand accent is applied and components fall back to their neutral `var(--oc-*, ...)` default colors.
+Both brands only apply when `data-oc-brand` is set to their matching value (`'ochre'`/`'alternative'`); if the attribute is absent, no brand accent is applied and components fall back to their neutral `var(--oc-*, ...)` default colors.
 
 ### Adding a new brand
 
-1. Create a new folder under `src/theme/`, e.g. `src/theme/brand3/`.
-2. Add a `light.css` and `dark.css`, each wrapped in the matching `prefers-color-scheme` media query and scoped with `[data-oc-brand='brand3']` (and its `:not([data-oc-theme])`/`[data-oc-theme=...]` variants), setting the relevant tokens — see `theme/brand1/*` for the pattern.
+1. Create a new folder under `src/theme/brands/`, e.g. `src/theme/brands/my-brand/`.
+2. Add a `light.css` and `dark.css`, each wrapped in the matching `prefers-color-scheme` media query and scoped with `[data-oc-brand='my-brand']` (and its `:not([data-oc-theme])`/`[data-oc-theme=...]` variants), setting the relevant tokens — see `theme/brands/ochre/*` for the pattern.
 3. Import both files wherever the theme stack is assembled (`src/main.jsx`, `.storybook/preview.jsx`).
-4. Add `brand3` as an option to the `brand` toolbar entry in [.storybook/preview.jsx](../.storybook/preview.jsx).
+4. Add `my-brand` as an option to the `brand` toolbar entry in [.storybook/preview.jsx](../.storybook/preview.jsx).
 
 ## Light / dark mode
 
@@ -134,9 +134,9 @@ The same `data-oc-theme` attribute can be used outside Storybook (e.g. in the ap
 
 ### Switching brands with `data-oc-brand`
 
-Unlike light/dark mode, brand has no OS-level signal to default to — instead, setting `data-oc-brand="brand1"` or `data-oc-brand="brand2"` on `<html>` switches to that brand. Both brands' CSS files are always loaded; the attribute just selects which set of rules wins. Removing the attribute (or setting any other value) applies no brand, falling back to each token's neutral default color.
+Unlike light/dark mode, brand has no OS-level signal to default to — instead, setting `data-oc-brand="ochre"` or `data-oc-brand="alternative"` on `<html>` switches to that brand. Both brands' CSS files are always loaded; the attribute just selects which set of rules wins. Removing the attribute (or setting any other value) applies no brand, falling back to each token's neutral default color.
 
-Storybook exposes this as a **Brand** toolbar control (Ochre brand / Alternative brand / No brand) in [.storybook/preview.jsx](../.storybook/preview.jsx), using the same `withTheme` decorator that drives the Theme control:
+Storybook exposes this as a **Brand** toolbar control (Ochre / Alternative / No brand) in [.storybook/preview.jsx](../.storybook/preview.jsx), using the same `withTheme` decorator that drives the Theme control:
 
 ```jsx
 useEffect(() => {
