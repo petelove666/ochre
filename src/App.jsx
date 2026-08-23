@@ -1,23 +1,23 @@
-import Card from './components/card/OcCard'
-import Toggle from './components/toggle/OcToggle'
+import Card from "./components/card/OcCard";
+import Toggle from "./components/toggle/OcToggle";
 
 function App() {
   const densityToggle = {
-    name: 'density',
+    name: "density",
     options: [
-      { label: 'condensed', value: 'a' },
-      { label: 'expanded', value: 'b' },
-    ]
-  }
+      { label: "condensed", value: "a" },
+      { label: "expanded", value: "b" },
+    ],
+  };
 
   const optionsToggle = {
-    name: 'options',
+    name: "options",
     options: [
-      { label: 'option 1', value: 'a' },
-      { label: 'option 2', value: 'b' },
-      { label: 'option 3', value: 'c' }
-    ]
-  }
+      { label: "option 1", value: "a" },
+      { label: "option 2", value: "b" },
+      { label: "option 3", value: "c" },
+    ],
+  };
 
   return (
     <>
@@ -25,15 +25,15 @@ function App() {
         <h1>Ochre</h1>
         <Card>
           <p>Density</p>
-          <Toggle{...densityToggle}/>
+          <Toggle {...densityToggle} />
         </Card>
-         <Card>
+        <Card>
           <p>Options</p>
-          <Toggle{...optionsToggle}/>
+          <Toggle {...optionsToggle} />
         </Card>
       </section>
     </>
-  )
+  );
 }
 
-export default App
+export default App;

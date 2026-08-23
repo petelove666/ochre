@@ -1,21 +1,21 @@
-import { expect } from 'storybook/test';
-import OcCard from './OcCard';
-import OcButton from '../button/OcButton';
+import { expect } from "storybook/test";
+import OcCard from "./OcCard";
+import OcButton from "../button/OcButton";
 
 const meta = {
   component: OcCard,
-  tags: ['autodocs', 'ai-generated'],
+  tags: ["autodocs", "ai-generated"],
   parameters: {
     docs: {
       description: {
         component:
-          'A simple container for grouping related content. It provides a standardized card surface with padding and border styling.',
+          "A simple container for grouping related content. It provides a standardized card surface with padding and border styling.",
       },
     },
   },
   argTypes: {
     children: {
-      description: 'Content rendered inside the card.',
+      description: "Content rendered inside the card.",
       control: false,
     },
   },

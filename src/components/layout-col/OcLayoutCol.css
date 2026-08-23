@@ -1,0 +1,5 @@
+.oc-layout-col {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
