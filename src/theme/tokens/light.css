@@ -1,9 +1,9 @@
 @media (prefers-color-scheme: light) {
     :root:not([data-oc-theme]) {
         --oc-body-bg: rgb(255 255 255);
-        --oc-layer-bg: rgb(247, 243, 236);
-        --oc-layer-secondary-bg: rgb(247, 243, 237);
-        --oc-layer-secondary-bg-hover: rgb(250, 246, 240);
+        --oc-layer-bg: color-mix(in srgb, var(--oc-brand-accent-color, rgb(140 140 140)) 20%, var(--oc-body-bg));
+        --oc-layer-secondary-bg: color-mix(in srgb, var(--oc-brand-accent-color, rgb(140 140 140)) 10%, var(--oc-body-bg));
+        --oc-layer-secondary-bg-hover: color-mix(in srgb, var(--oc-brand-accent-color, rgb(140 140 140)) 5%, var(--oc-body-bg));
 
         --oc-text-color: rgb(0 0 0);
         --oc-text-color-inverted: rgb(255 255 255);
@@ -19,9 +19,9 @@
 
 :root[data-oc-theme='light'] {
     --oc-body-bg: rgb(255 255 255);
-    --oc-layer-bg: rgb(246, 239, 228);
-    --oc-layer-secondary-bg: rgb(247, 243, 237);
-    --oc-layer-secondary-bg-hover: rgb(250, 246, 240);
+    --oc-layer-bg: color-mix(in srgb, var(--oc-brand-accent-color, rgb(140 140 140)) 20%, var(--oc-body-bg));
+    --oc-layer-secondary-bg: color-mix(in srgb, var(--oc-brand-accent-color, rgb(140 140 140)) 10%, var(--oc-body-bg));
+    --oc-layer-secondary-bg-hover: color-mix(in srgb, var(--oc-brand-accent-color, rgb(140 140 140)) 5%, var(--oc-body-bg));
 
     --oc-text-color: rgb(0 0 0);
     --oc-text-color-inverted: rgb(255 255 255);
