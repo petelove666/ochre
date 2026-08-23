@@ -26,7 +26,7 @@ Each file contributes a different layer, applied in this order:
 2. **Tokens (color scheme)** — `theme/tokens/light.css`, `theme/tokens/dark.css`
    Sets semantic color tokens for light/dark mode.
 3. **Tokens (global)** — `theme/tokens/global.css`
-   Sets tokens that don't change with brand or light/dark scheme (e.g. border radius).
+   Sets tokens that don't change with brand or light/dark scheme (e.g. border radius), and applies brand tokens to global tokens eg. layers
 4. **Base styles** — `styles/global.css`
    Applies styles to base HTML elements (`body`, box-sizing reset).
 
@@ -34,7 +34,7 @@ Component stylesheets (e.g. [OcButton.css](../src/components/button/OcButton.css
 
 ## Brand themes
 
-A brand theme sets tokens, eg. `--oc-brand-accent-color` which are then used in the respective light/dark schemes, e.g. `--oc-selected-bg` in the token layer uses '--oc-brand-accent-color', so the brand color flows through to any component that uses `--oc-selected-bg` (buttons, toggles, etc.).
+A brand theme sets tokens, eg. `--oc-brand-accent-color` which are then used in the respective light/dark schemes, so the brand color flows through to any component that references those tokens (buttons, toggles, etc.).
 
 Both brands' CSS files are imported at the same time; a `data-oc-brand` attribute on `<html>` selects which one is active — see "Switching brands with data-oc-brand" below.
 
@@ -43,18 +43,22 @@ Both brands' CSS files are imported at the same time; a `data-oc-brand` attribut
 @media (prefers-color-scheme: light) {
     :root[data-oc-brand='brand1']:not([data-oc-theme]) {
         --oc-brand-accent-color: rgb(210 165 60);
+        --oc-brand-accent-color-text: rgb(0 0 0);
     }
 }
 
 :root[data-oc-theme='light'][data-oc-brand='brand1'] {
     --oc-brand-accent-color: rgb(210 165 60);
+    --oc-brand-accent-color-text: rgb(0 0 0);
 }
 ```
 
 Two brands currently ship with Ochre:
 
 - **brand1** — gold/ochre accent (`rgb(210 165 60)` light / `rgb(156 132 77)` dark)
-- **brand2** — pink/magenta accent (`rgb(210 56 118)` light / `rgb(146 72 101)` dark) — the default when no `data-oc-brand` attribute is set
+- **brand2** — pink/magenta accent (`rgb(210 56 118)` light / `rgb(146 72 101)` dark)
+
+Both brands only apply when `data-oc-brand` is set to their matching value (`'brand1'`/`'brand2'`); if the attribute is absent, no brand accent is applied and components fall back to their neutral `var(--oc-*, ...)` default colors.
 
 ### Adding a new brand
 
@@ -72,15 +76,33 @@ Light and dark tokens are defined using the `prefers-color-scheme` media query, 
 @media (prefers-color-scheme: dark) {
     :root:not([data-oc-theme]) {
         --oc-body-bg: rgb(0 0 0);
-        --oc-layer-bg: rgb(50 50 50);
-        --oc-layer-secondary-bg: rgb(30 30 30);
+
+        --oc-text-color: rgb(255 255 255);
+        --oc-text-color-inverted: rgb(0 0 0);
+
+        --oc-border-color: rgb(90 90 90);
+
+        --oc-disabled-bg: rgb(65 65 65);
+        --oc-disabled-text: rgb(190 190 190);
+
+        --oc-primary-color: var(--oc-brand-accent-color, rgb(200 200 200));
+        --oc-primary-color-text: var(--oc-brand-accent-color-text, rgb(0 0 0));
     }
 }
 
 :root[data-oc-theme='dark'] {
     --oc-body-bg: rgb(0 0 0);
-    --oc-layer-bg: rgb(50 50 50);
-    --oc-layer-secondary-bg: rgb(30 30 30);
+
+    --oc-text-color: rgb(255 255 255);
+    --oc-text-color-inverted: rgb(0 0 0);
+
+    --oc-border-color: rgb(90 90 90);
+
+    --oc-disabled-bg: rgb(65 65 65);
+    --oc-disabled-text: rgb(190 190 190);
+
+    --oc-primary-color: var(--oc-brand-accent-color, rgb(200 200 200));
+    --oc-primary-color-text: var(--oc-brand-accent-color-text, rgb(0 0 0));
 }
 ```
 
@@ -112,13 +134,17 @@ The same `data-oc-theme` attribute can be used outside Storybook (e.g. in the ap
 
 ### Switching brands with `data-oc-brand`
 
-Unlike light/dark mode, brand has no OS-level signal to default to — instead, `brand2` is the default (applied whenever `data-oc-brand` is absent or not `'brand1'`), and setting `data-oc-brand="brand1"` on `<html>` switches to brand1. Both brands' CSS files are always loaded; the attribute just selects which set of rules wins.
+Unlike light/dark mode, brand has no OS-level signal to default to — instead, setting `data-oc-brand="brand1"` or `data-oc-brand="brand2"` on `<html>` switches to that brand. Both brands' CSS files are always loaded; the attribute just selects which set of rules wins. Removing the attribute (or setting any other value) applies no brand, falling back to each token's neutral default color.
 
-Storybook exposes this as a **Brand** toolbar control (Brand 1 / Brand 2) in [.storybook/preview.jsx](../.storybook/preview.jsx), using the same `withTheme` decorator that drives the Theme control:
+Storybook exposes this as a **Brand** toolbar control (Ochre brand / Alternative brand / No brand) in [.storybook/preview.jsx](../.storybook/preview.jsx), using the same `withTheme` decorator that drives the Theme control:
 
 ```jsx
 useEffect(() => {
-  document.documentElement.setAttribute('data-oc-brand', brand);
+  if (brand === 'nobrand') {
+    document.documentElement.removeAttribute('data-oc-brand');
+  } else {
+    document.documentElement.setAttribute('data-oc-brand', brand);
+  }
 }, [brand]);
 ```
 
@@ -128,20 +154,26 @@ The same `data-oc-brand` attribute can be used outside Storybook (e.g. in the ap
 
 - **`--oc-brand-accent-color`** — defined in `theme/brand{n}/light.css`, `theme/brand{n}/dark.css`
   Brand accent color for the active color scheme.
+- **`--oc-brand-accent-color-text`** — defined in `theme/brand{n}/light.css`, `theme/brand{n}/dark.css`
+  Text color for use on top of `--oc-brand-accent-color`.
+- **`--oc-primary-color`** — defined in `theme/tokens/light.css`, `theme/tokens/dark.css`
+  Primary interactive color, derived from `--oc-brand-accent-color` (e.g. `OcButton`, `OcToggle`).
+- **`--oc-primary-color-text`** — defined in `theme/tokens/light.css`, `theme/tokens/dark.css`
+  Text color for use on top of `--oc-primary-color`.
 - **`--oc-body-bg`** — defined in `theme/tokens/light.css`, `theme/tokens/dark.css`
   Page/body background color.
-- **`--oc-layer-bg`** — defined in `theme/tokens/light.css`, `theme/tokens/dark.css`
+- **`--oc-layer-bg`** — defined in `theme/tokens/global.css`
   Background for elevated surfaces (e.g. `OcCard`).
-- **`--oc-layer-secondary-bg`** — defined in `theme/tokens/light.css`, `theme/tokens/dark.css`
+- **`--oc-layer-secondary-bg`** — defined in `theme/tokens/global.css`
   Background for secondary/nested surfaces (e.g. unselected `OcToggle` options).
+- **`--oc-layer-secondary-bg-hover`** — defined in `theme/tokens/global.css`
+  Hover background for secondary/nested surfaces (e.g. `OcTextInput`).
 - **`--oc-text-color`** — defined in `theme/tokens/light.css`, `theme/tokens/dark.css`
   Default text/foreground color.
 - **`--oc-text-color-inverted`** — defined in `theme/tokens/light.css`, `theme/tokens/dark.css`
   Text color used on top of dark areas (light mode) or light areas (dark mode)
 - **`--oc-border-color`** — defined in `theme/tokens/light.css`, `theme/tokens/dark.css`
   Default border color for outlined surfaces.
-- **`--oc-selected-bg`** — defined in `theme/tokens/light.css`, `theme/tokens/dark.css`
-  Background for selected/active states.
 - **`--oc-disabled-bg`** — defined in `theme/tokens/light.css`, `theme/tokens/dark.css`
   Background for disabled controls.
 - **`--oc-disabled-text`** — defined in `theme/tokens/light.css`, `theme/tokens/dark.css`

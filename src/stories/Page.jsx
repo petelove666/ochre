@@ -14,7 +14,7 @@ export const Page = () => {
   return (
     <article>
       <section className="storybook-page">
-        <h2>Ochre</h2>
+        <h2>Demo</h2>
 
         <OcCard>
           <OcLayoutCol>

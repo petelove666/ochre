@@ -1,35 +1,31 @@
 @media (prefers-color-scheme: light) {
     :root:not([data-oc-theme]) {
         --oc-body-bg: rgb(255 255 255);
-        --oc-layer-bg: color-mix(in srgb, var(--oc-brand-accent-color, rgb(140 140 140)) 20%, var(--oc-body-bg));
-        --oc-layer-secondary-bg: color-mix(in srgb, var(--oc-brand-accent-color, rgb(140 140 140)) 10%, var(--oc-body-bg));
-        --oc-layer-secondary-bg-hover: color-mix(in srgb, var(--oc-brand-accent-color, rgb(140 140 140)) 5%, var(--oc-body-bg));
 
         --oc-text-color: rgb(0 0 0);
         --oc-text-color-inverted: rgb(255 255 255);
 
         --oc-border-color: rgb(160 160 160);
 
-        --oc-selected-bg: var(--oc-brand-accent-color, rgb(140 140 140));
-
         --oc-disabled-bg: rgb(190 190 190);
         --oc-disabled-text: rgb(65 65 65);
+
+        --oc-primary-color: var(--oc-brand-accent-color, rgb(20 20 20));
+        --oc-primary-color-text: var(--oc-brand-accent-color-text, rgb(255 255 255));
     }
 }
 
 :root[data-oc-theme='light'] {
     --oc-body-bg: rgb(255 255 255);
-    --oc-layer-bg: color-mix(in srgb, var(--oc-brand-accent-color, rgb(140 140 140)) 20%, var(--oc-body-bg));
-    --oc-layer-secondary-bg: color-mix(in srgb, var(--oc-brand-accent-color, rgb(140 140 140)) 10%, var(--oc-body-bg));
-    --oc-layer-secondary-bg-hover: color-mix(in srgb, var(--oc-brand-accent-color, rgb(140 140 140)) 5%, var(--oc-body-bg));
 
     --oc-text-color: rgb(0 0 0);
     --oc-text-color-inverted: rgb(255 255 255);
 
     --oc-border-color: rgb(160 160 160);
 
-    --oc-selected-bg: var(--oc-brand-accent-color, rgb(140 140 140));
-
     --oc-disabled-bg: rgb(190 190 190);
     --oc-disabled-text: rgb(65 65 65);
+
+    --oc-primary-color: var(--oc-brand-accent-color, rgb(20 20 20));
+    --oc-primary-color-text: var(--oc-brand-accent-color-text, rgb(255 255 255));
 }

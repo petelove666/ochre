@@ -1,6 +1,6 @@
 .oc-card {
-    background-color: var(--oc-layer-bg, rgb(200 200 200));
-    border: 1px solid var(--oc-border-color, rgb(130 130 130));
-    border-radius: var(--oc-border-radius, 0.5rem);
+    background-color: var(--oc-layer-bg);
+    border: 1px solid var(--oc-border-color);
+    border-radius: var(--oc-border-radius);
     padding: 1rem;
 }

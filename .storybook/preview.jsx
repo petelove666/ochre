@@ -10,7 +10,7 @@ import '../src/styles/global.css';
 
 const withTheme = (Story, context) => {
   const theme = context.globals.theme || 'system';
-  const brand = context.globals.brand || 'brand2';
+  const brand = context.globals.brand || 'brand1';
 
   useEffect(() => {
     if (theme === 'system') {
@@ -21,7 +21,11 @@ const withTheme = (Story, context) => {
   }, [theme]);
 
   useEffect(() => {
-    document.documentElement.setAttribute('data-oc-brand', brand);
+    if (brand === 'nobrand') {
+      document.documentElement.removeAttribute('data-oc-brand');
+    } else {
+      document.documentElement.setAttribute('data-oc-brand', brand);
+    }
   }, [brand]);
 
   return <Story />;
@@ -51,6 +55,7 @@ const preview = {
         items: [
           { value: 'brand1', title: 'Ochre brand' },
           { value: 'brand2', title: 'Alternative brand' },
+          { value: 'nobrand', title: 'No brand' },
         ],
         dynamicTitle: true,
       },

@@ -6,8 +6,8 @@
 }
 
 .oc-button:not(:disabled) {
-    --ocButtonBackground: var(--oc-selected-bg, rgb(0 0 0));
-    --ocButtonText: var(--oc-text-color-inverted, rgb(255 255 255));
+    --ocButtonBackground: var(--oc-primary-color);
+    --ocButtonText: var(--oc-primary-color-text);
 
     &:hover {
         animation: oc-button-bounce 1.25s ease-in-out infinite;
@@ -16,7 +16,6 @@
 
 .oc-button {
     position: relative;
-    overflow: hidden;
     border-top: 0;
     border-bottom: 0;
     border-bottom: 0.25rem solid color-mix(in srgb, var(--oc-text-color) 50%, transparent);
