@@ -2,7 +2,8 @@
     :root:not([data-oc-theme]) {
         --oc-body-bg: rgb(255 255 255);
         --oc-layer-bg: rgb(247, 243, 236);
-        --oc-layer-secondary-bg: rgb(250, 250, 250);
+        --oc-layer-secondary-bg: rgb(247, 243, 237);
+        --oc-layer-secondary-bg-hover: rgb(250, 246, 240);
 
         --oc-text-color: rgb(0 0 0);
         --oc-text-color-inverted: rgb(255 255 255);
@@ -18,8 +19,9 @@
 
 :root[data-oc-theme='light'] {
     --oc-body-bg: rgb(255 255 255);
-    --oc-layer-bg: rgb(247, 243, 236);
-    --oc-layer-secondary-bg: rgb(250, 250, 250);
+    --oc-layer-bg: rgb(246, 239, 228);
+    --oc-layer-secondary-bg: rgb(247, 243, 237);
+    --oc-layer-secondary-bg-hover: rgb(250, 246, 240);
 
     --oc-text-color: rgb(0 0 0);
     --oc-text-color-inverted: rgb(255 255 255);

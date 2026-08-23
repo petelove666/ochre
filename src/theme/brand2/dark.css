@@ -1,9 +1,9 @@
 @media (prefers-color-scheme: dark) {
-    :root:not([data-oc-theme]) {
+    :root:not([data-oc-theme]):not([data-oc-brand='brand1']) {
         --oc-brand-accent-color: rgb(146, 72, 101);
     }
 }
 
-:root[data-oc-theme='dark'] {
+:root[data-oc-theme='dark']:not([data-oc-brand='brand1']) {
     --oc-brand-accent-color: rgb(146, 72, 101);
 }

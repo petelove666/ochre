@@ -1,0 +1,4 @@
+.oc-layout-col {
+    display: inline-flex;
+    flex-direction: column;
+}

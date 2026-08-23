@@ -1,11 +1,11 @@
-import { Page } from './Page';
+import { Page } from "./Page";
 
 export default {
-  title: 'Example/Page',
+  title: "Example/Page",
   component: Page,
   parameters: {
     // More on how to position stories at: https://storybook.js.org/docs/configure/story-layout
-    layout: 'fullscreen',
+    layout: "fullscreen",
   },
 };
 

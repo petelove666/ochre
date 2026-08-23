@@ -3,7 +3,7 @@
     gap: 0.5rem;
     border: 1px solid var(--oc-border-color, rgb(130 130 130));
     border-radius: var(--oc-border-radius, 0.5rem);
-    padding:0.5rem;
+    padding: 0.5rem;
     background-color: var(--oc-layer-secondary-bg);
 
     input[type='radio'] {
@@ -49,9 +49,12 @@
 }
 
 @keyframes oc-toggle-hover-pulse {
-    0%, 100% {
+
+    0%,
+    100% {
         --oc-toggle-hover-mix: 0%;
     }
+
     50% {
         --oc-toggle-hover-mix: 10%;
     }

@@ -1,4 +1,6 @@
 import { useEffect } from 'react';
+import '../src/theme/brand1/light.css';
+import '../src/theme/brand1/dark.css';
 import '../src/theme/brand2/light.css';
 import '../src/theme/brand2/dark.css';
 import '../src/theme/tokens/light.css';
@@ -8,6 +10,7 @@ import '../src/styles/global.css';
 
 const withTheme = (Story, context) => {
   const theme = context.globals.theme || 'system';
+  const brand = context.globals.brand || 'brand2';
 
   useEffect(() => {
     if (theme === 'system') {
@@ -16,6 +19,10 @@ const withTheme = (Story, context) => {
       document.documentElement.setAttribute('data-oc-theme', theme);
     }
   }, [theme]);
+
+  useEffect(() => {
+    document.documentElement.setAttribute('data-oc-brand', brand);
+  }, [brand]);
 
   return <Story />;
 };
@@ -36,9 +43,22 @@ const preview = {
         dynamicTitle: true,
       },
     },
+    brand: {
+      description: 'Brand theme for components',
+      toolbar: {
+        title: 'Brand',
+        icon: 'paintbrush',
+        items: [
+          { value: 'brand1', title: 'Ochre brand' },
+          { value: 'brand2', title: 'Alternative brand' },
+        ],
+        dynamicTitle: true,
+      },
+    },
   },
   initialGlobals: {
-    theme: 'system',
+    theme: 'light',
+    brand: 'brand1',
   },
   parameters: {
     options: {
