@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import type { Decorator, Preview } from '@storybook/react-vite';
 import '../src/theme/brands/ochre/light.css';
 import '../src/theme/brands/ochre/dark.css';
 import '../src/theme/brands/alternative/light.css';
@@ -8,7 +9,7 @@ import '../src/theme/tokens/dark.css';
 import '../src/theme/tokens/global.css';
 import '../src/styles/global.css';
 
-const withTheme = (Story, context) => {
+const withTheme: Decorator = (Story, context) => {
   const theme = context.globals.theme || 'system';
   const brand = context.globals.brand || 'ochre';
 
@@ -31,8 +32,7 @@ const withTheme = (Story, context) => {
   return <Story />;
 };
 
-/** @type { import('@storybook/react-vite').Preview } */
-const preview = {
+const preview: Preview = {
   globalTypes: {
     theme: {
       description: 'Light/dark theme for components',

@@ -1,4 +1,4 @@
-import { expect } from "storybook/test";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import OcTextInput from "./OcTextInput";
 
 const meta = {
@@ -23,11 +23,13 @@ const meta = {
       control: "boolean",
     },
   },
-};
+} satisfies Meta<typeof OcTextInput>;
 
 export default meta;
 
-export const Default = {
+type Story = StoryObj<typeof meta>;
+
+export const Default: Story = {
   args: {
     children: (
       <>
@@ -38,7 +40,7 @@ export const Default = {
   },
 };
 
-export const WithContent = {
+export const WithContent: Story = {
   args: {
     children: (
       <>
@@ -55,7 +57,7 @@ export const WithContent = {
   },
 };
 
-export const Stretch = {
+export const Stretch: Story = {
   args: {
     stretch: true,
     children: (

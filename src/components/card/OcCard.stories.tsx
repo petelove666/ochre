@@ -1,4 +1,4 @@
-import { expect } from "storybook/test";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import OcCard from "./OcCard";
 import OcButton from "../button/OcButton";
 
@@ -19,17 +19,19 @@ const meta = {
       control: false,
     },
   },
-};
+} satisfies Meta<typeof OcCard>;
 
 export default meta;
 
-export const Default = {
+type Story = StoryObj<typeof meta>;
+
+export const Default: Story = {
   args: {
     children: <p>Card</p>,
   },
 };
 
-export const WithContent = {
+export const WithContent: Story = {
   args: {
     children: (
       <>

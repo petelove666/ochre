@@ -1,4 +1,4 @@
-import { expect } from "storybook/test";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import { OcLayoutCol } from "./OcLayoutCol";
 import { OcCard } from "../card/OcCard";
 
@@ -24,11 +24,13 @@ const meta = {
       options: [8, 16, 24, 32, 48],
     },
   },
-};
+} satisfies Meta<typeof OcLayoutCol>;
 
 export default meta;
 
-export const Default = {
+type Story = StoryObj<typeof meta>;
+
+export const Default: Story = {
   args: {
     children: (
       <>
@@ -48,7 +50,7 @@ export const Default = {
   },
 };
 
-export const LargeGap = {
+export const LargeGap: Story = {
   args: {
     gap: 48,
     children: (

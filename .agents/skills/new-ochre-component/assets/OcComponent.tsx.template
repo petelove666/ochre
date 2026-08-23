@@ -1,0 +1,12 @@
+import type { ReactNode } from "react";
+import "./OcComponent.css";
+
+export interface OcComponentProps {
+	children?: ReactNode;
+}
+
+export function OcComponent({ children }: OcComponentProps) {
+	return <div className="oc-component">{children}</div>;
+}
+
+export default OcComponent;

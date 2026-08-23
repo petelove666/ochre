@@ -1,20 +1,27 @@
 import { Children, cloneElement, useId, useRef, useState } from "react";
+import type { KeyboardEvent, ReactElement, ReactNode } from "react";
+import type { OcTabPanelProps } from "./OcTabPanel";
 import "./OcTabs.css";
 
-export function OcTabs({ children, defaultActiveIndex = 0 }) {
+export interface OcTabsProps {
+  children?: ReactNode;
+  defaultActiveIndex?: number;
+}
+
+export function OcTabs({ children, defaultActiveIndex = 0 }: OcTabsProps) {
   const [activeIndex, setActiveIndex] = useState(defaultActiveIndex);
   const baseId = useId();
-  const tabRefs = useRef([]);
+  const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
 
-  const panels = Children.toArray(children);
+  const panels = Children.toArray(children) as ReactElement<OcTabPanelProps>[];
   const lastIndex = panels.length - 1;
 
-  const focusTab = (index) => {
+  const focusTab = (index: number) => {
     tabRefs.current[index]?.focus();
   };
 
-  const handleKeyDown = (event, index) => {
-    let newIndex = null;
+  const handleKeyDown = (event: KeyboardEvent<HTMLButtonElement>, index: number) => {
+    let newIndex: number | null = null;
 
     switch (event.key) {
       case "ArrowRight":
@@ -49,7 +56,9 @@ export function OcTabs({ children, defaultActiveIndex = 0 }) {
           return (
             <button
               key={tabId}
-              ref={(el) => (tabRefs.current[index] = el)}
+              ref={(el) => {
+                tabRefs.current[index] = el;
+              }}
               type="button"
               role="tab"
               id={tabId}

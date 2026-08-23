@@ -1,3 +1,4 @@
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import OcToggle from "./OcToggle";
 
 const meta = {
@@ -27,11 +28,13 @@ const meta = {
       control: "text",
     },
   },
-};
+} satisfies Meta<typeof OcToggle>;
 
 export default meta;
 
-export const Default = {
+type Story = StoryObj<typeof meta>;
+
+export const Default: Story = {
   args: {
     name: "default-group",
     options: [
@@ -42,7 +45,7 @@ export const Default = {
   },
 };
 
-export const WithSelection = {
+export const WithSelection: Story = {
   args: {
     name: "options",
     selectedValue: "b",
@@ -54,7 +57,7 @@ export const WithSelection = {
   },
 };
 
-export const CustomName = {
+export const CustomName: Story = {
   args: {
     name: "presentation",
     options: [

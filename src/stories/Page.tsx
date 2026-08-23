@@ -1,18 +1,14 @@
-import React from "react";
-
-import { OcTabs } from "../components/tabs/OcTabs.jsx";
-import { OcLayoutCol } from "../components/layout-col/OcLayoutCol.jsx";
-import { OcTabPanel } from "../components/tabs/OcTabPanel.jsx";
-import { OcButton } from "../components/button/OcButton.jsx";
-import { OcCard } from "../components/card/OcCard.jsx";
-import { OcToggle } from "../components/toggle/OcToggle.jsx";
-import { OcTextInput } from "../components/text-input/OcTextInput.jsx";
+import { OcTabs } from "../components/tabs/OcTabs.tsx";
+import { OcLayoutCol } from "../components/layout-col/OcLayoutCol.tsx";
+import { OcTabPanel } from "../components/tabs/OcTabPanel.tsx";
+import { OcButton } from "../components/button/OcButton.tsx";
+import { OcCard } from "../components/card/OcCard.tsx";
+import { OcToggle } from "../components/toggle/OcToggle.tsx";
+import { OcTextInput } from "../components/text-input/OcTextInput.tsx";
 
 import "./page.css";
 
 export const Page = () => {
-  const [user, setUser] = React.useState();
-
   return (
     <article>
       <section className="storybook-page">

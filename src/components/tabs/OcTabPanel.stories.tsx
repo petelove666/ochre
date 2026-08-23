@@ -1,3 +1,4 @@
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import { OcTabPanel } from "./OcTabPanel";
 
 const meta = {
@@ -21,11 +22,13 @@ const meta = {
       control: "text",
     },
   },
-};
+} satisfies Meta<typeof OcTabPanel>;
 
 export default meta;
 
-export const Default = {
+type Story = StoryObj<typeof meta>;
+
+export const Default: Story = {
   args: {
     label: "Tab label",
     children: "Panel content",
