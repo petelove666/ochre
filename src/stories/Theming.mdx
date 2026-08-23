@@ -6,13 +6,15 @@ import { Meta } from "@storybook/addon-docs/blocks";
 
 Ochre components are styled entirely with plain CSS and [CSS custom properties](https://developer.mozilla.org/en-US/docs/Web/CSS/--*) (design tokens).
 
-Theme stylesheets are imported once, in a fixed order, in the app entry point ([src/main.jsx](../src/main.jsx)) and in Storybook's preview ([.storybook/preview.jsx](../.storybook/preview.jsx)):
+Theme stylesheets are imported once, in a fixed order, in the app entry point ([src/main.tsx](../src/main.tsx)) and in Storybook's preview ([.storybook/preview.tsx](../.storybook/preview.tsx)):
 
 ```js
 import './theme/brands/ochre/light.css'
 import './theme/brands/ochre/dark.css'
+import './theme/brands/ochre/global.css'
 import './theme/brands/alternative/light.css'
 import './theme/brands/alternative/dark.css'
+import './theme/brands/alternative/global.css'
 import './theme/tokens/light.css'
 import './theme/tokens/dark.css'
 import './theme/tokens/global.css'
@@ -21,12 +23,12 @@ import './styles/global.css'
 
 Each file contributes a different layer, applied in this order:
 
-1. **Brand** — `theme/<brand-name>/light.css`, `theme/<brand-name>/dark.css`
-   Sets the brand specific colours e.g. accent colour
+1. **Brand** — `theme/<brand-name>/light.css`, `theme/<brand-name>/dark.css`, `theme/<brand-name>/global.css`
+   Sets the brand specific tokens — `light.css`/`dark.css` for ones that differ per color scheme (e.g. accent colour), `global.css` for ones that don't (e.g. font stack).
 2. **Tokens (color scheme)** — `theme/tokens/light.css`, `theme/tokens/dark.css`
    Sets semantic color tokens for light/dark mode.
 3. **Tokens (global)** — `theme/tokens/global.css`
-   Sets tokens that don't change with brand or light/dark scheme (e.g. border radius), and applies brand tokens to global tokens eg. layers
+   Sets tokens that don't change with brand or light/dark scheme (e.g. border radius), and applies brand tokens to global tokens eg. layers and font stack
 4. **Base styles** — `styles/global.css`
    Applies styles to base HTML elements (`body`, box-sizing reset).
 
@@ -53,6 +55,15 @@ Both brands' CSS files are imported at the same time; a `data-oc-brand` attribut
 }
 ```
 
+Tokens that don't vary between light and dark (e.g. a brand's font stack) don't need the `prefers-color-scheme`/`data-oc-theme` split above — they live in a plain `global.css` alongside the brand's `light.css`/`dark.css`, scoped only by `data-oc-brand`:
+
+```css
+/* theme/brands/ochre/global.css */
+:root[data-oc-brand='ochre'] {
+    --oc-brand-font-stack: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+```
+
 Two brands currently ship with Ochre:
 
 - **ochre** — gold/ochre accent (`rgb(210 165 60)` light / `rgb(156 132 77)` dark)
@@ -64,8 +75,9 @@ Both brands only apply when `data-oc-brand` is set to their matching value (`'oc
 
 1. Create a new folder under `src/theme/brands/`, e.g. `src/theme/brands/my-brand/`.
 2. Add a `light.css` and `dark.css`, each wrapped in the matching `prefers-color-scheme` media query and scoped with `[data-oc-brand='my-brand']` (and its `:not([data-oc-theme])`/`[data-oc-theme=...]` variants), setting the relevant tokens — see `theme/brands/ochre/*` for the pattern.
-3. Import both files wherever the theme stack is assembled (`src/main.jsx`, `.storybook/preview.jsx`).
-4. Add `my-brand` as an option to the `brand` toolbar entry in [.storybook/preview.jsx](../.storybook/preview.jsx).
+3. If the brand needs tokens that don't vary with light/dark (e.g. a font stack), add a `global.css` scoped only with `[data-oc-brand='my-brand']` — see `theme/brands/ochre/global.css`.
+4. Import all three files wherever the theme stack is assembled (`src/main.tsx`, `.storybook/preview.tsx`).
+5. Add `my-brand` as an option to the `brand` toolbar entry in [.storybook/preview.tsx](../.storybook/preview.tsx).
 
 ## Light / dark mode
 
@@ -112,7 +124,7 @@ Both `theme/tokens/light.css` and `theme/tokens/dark.css` are imported at the sa
 
 Every token file also defines a `:root[data-oc-theme="light"]` / `:root[data-oc-theme="dark"]` block that mirrors its media query block, and the media query block itself is scoped with `:not([data-oc-theme])`. This means setting a `data-oc-theme="light"` or `data-oc-theme="dark"` attribute on the `<html>` element forces that theme regardless of the OS setting; removing the attribute falls back to `prefers-color-scheme` again.
 
-Storybook uses this to provide a **Theme** toolbar control (System / Light / Dark) in [.storybook/preview.jsx](../.storybook/preview.jsx):
+Storybook uses this to provide a **Theme** toolbar control (System / Light / Dark) in [.storybook/preview.tsx](../.storybook/preview.tsx):
 
 ```jsx
 const withTheme = (Story, context) => {
@@ -136,7 +148,7 @@ The same `data-oc-theme` attribute can be used outside Storybook (e.g. in the ap
 
 Unlike light/dark mode, brand has no OS-level signal to default to — instead, setting `data-oc-brand="ochre"` or `data-oc-brand="alternative"` on `<html>` switches to that brand. Both brands' CSS files are always loaded; the attribute just selects which set of rules wins. Removing the attribute (or setting any other value) applies no brand, falling back to each token's neutral default color.
 
-Storybook exposes this as a **Brand** toolbar control (Ochre / Alternative / No brand) in [.storybook/preview.jsx](../.storybook/preview.jsx), using the same `withTheme` decorator that drives the Theme control:
+Storybook exposes this as a **Brand** toolbar control (Ochre / Alternative / No brand) in [.storybook/preview.tsx](../.storybook/preview.tsx), using the same `withTheme` decorator that drives the Theme control:
 
 ```jsx
 useEffect(() => {
@@ -156,6 +168,10 @@ The same `data-oc-brand` attribute can be used outside Storybook (e.g. in the ap
   Brand accent color for the active color scheme.
 - **`--oc-brand-accent-color-text`** — defined in `theme/brand{n}/light.css`, `theme/brand{n}/dark.css`
   Text color for use on top of `--oc-brand-accent-color`.
+- **`--oc-brand-font-stack`** — defined in `theme/brand{n}/global.css`
+  Brand-specific font stack (doesn't vary between light/dark).
+- **`--oc-font-stack`** — defined in `theme/tokens/global.css`
+  Font stack applied globally (e.g. `styles/global.css`), derived from `--oc-brand-font-stack`.
 - **`--oc-primary-color`** — defined in `theme/tokens/light.css`, `theme/tokens/dark.css`
   Primary interactive color, derived from `--oc-brand-accent-color` (e.g. `OcButton`, `OcToggle`).
 - **`--oc-primary-color-text`** — defined in `theme/tokens/light.css`, `theme/tokens/dark.css`
@@ -194,4 +210,11 @@ Component styles should always read tokens through `var()` with a hard-coded fal
 }
 ```
 
-When adding a new component, prefer reusing existing tokens above over introducing new ones. If a new token is genuinely needed, add it to `theme/tokens/global.css` (scheme-independent) or both `theme/tokens/light.css` and `theme/tokens/dark.css` (scheme-dependent), following the existing naming convention (`--oc-<purpose>`).
+When adding a new component, prefer reusing existing tokens above over introducing new ones. If a new token is genuinely needed:
+
+- **Scheme-independent, shared across brands** — add it to `theme/tokens/global.css`.
+- **Scheme-dependent, shared across brands** — add it to both `theme/tokens/light.css` and `theme/tokens/dark.css`.
+- **Brand-specific, scheme-independent** (e.g. a font stack) — add it to each `theme/brands/<brand-name>/global.css`, following the `--oc-brand-<purpose>` convention.
+- **Brand-specific, scheme-dependent** (e.g. an accent color) — add it to each `theme/brands/<brand-name>/light.css` and `dark.css`, following the `--oc-brand-<purpose>` convention.
+
+Otherwise, follow the existing naming convention (`--oc-<purpose>`).

@@ -1,8 +1,9 @@
-import Card from "./components/card/OcCard";
-import Toggle from "./components/toggle/OcToggle";
+import { OcCard } from "./components/card/OcCard";
+import { OcToggle } from "./components/toggle/OcToggle";
+import type { OcToggleProps } from "./components/toggle/OcToggle";
 
 function App() {
-  const densityToggle = {
+  const densityToggle: OcToggleProps = {
     name: "density",
     options: [
       { label: "condensed", value: "a" },
@@ -10,7 +11,7 @@ function App() {
     ],
   };
 
-  const optionsToggle = {
+  const optionsToggle: OcToggleProps = {
     name: "options",
     options: [
       { label: "option 1", value: "a" },
@@ -23,14 +24,14 @@ function App() {
     <>
       <section>
         <h1>Ochre</h1>
-        <Card>
+        <OcCard>
           <p>Density</p>
-          <Toggle {...densityToggle} />
-        </Card>
-        <Card>
+          <OcToggle {...densityToggle} />
+        </OcCard>
+        <OcCard>
           <p>Options</p>
-          <Toggle {...optionsToggle} />
-        </Card>
+          <OcToggle {...optionsToggle} />
+        </OcCard>
       </section>
     </>
   );

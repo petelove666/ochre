@@ -1,4 +1,5 @@
 import { expect, userEvent } from "storybook/test";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import { OcTabs } from "./OcTabs";
 import { OcTabPanel } from "./OcTabPanel";
 
@@ -23,9 +24,11 @@ const meta = {
       control: "number",
     },
   },
-};
+} satisfies Meta<typeof OcTabs>;
 
 export default meta;
+
+type Story = StoryObj<typeof meta>;
 
 const panels = [
   <OcTabPanel key="1" label="First">
@@ -39,7 +42,7 @@ const panels = [
   </OcTabPanel>,
 ];
 
-export const Default = {
+export const Default: Story = {
   args: {
     children: panels,
   },
@@ -49,7 +52,7 @@ export const Default = {
   },
 };
 
-export const ClickToSwitch = {
+export const ClickToSwitch: Story = {
   args: {
     children: panels,
   },
@@ -62,7 +65,7 @@ export const ClickToSwitch = {
   },
 };
 
-export const KeyboardNavigation = {
+export const KeyboardNavigation: Story = {
   args: {
     children: panels,
   },
@@ -88,7 +91,7 @@ export const KeyboardNavigation = {
   },
 };
 
-export const DefaultActiveIndex = {
+export const DefaultActiveIndex: Story = {
   args: {
     children: panels,
     defaultActiveIndex: 2,
@@ -98,7 +101,7 @@ export const DefaultActiveIndex = {
   },
 };
 
-export const TabIntoPanel = {
+export const TabIntoPanel: Story = {
   args: {
     children: panels,
   },

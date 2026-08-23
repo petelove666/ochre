@@ -1,12 +1,11 @@
+import type { StorybookConfig } from "@storybook/react-vite";
 
-
-/** @type { import('@storybook/react-vite').StorybookConfig } */
-const config = {
-  "stories": [
+const config: StorybookConfig = {
+  stories: [
     "../src/**/*.mdx",
     "../src/**/*.stories.@(js|jsx|mjs|ts|tsx)"
   ],
-  "addons": [
+  addons: [
     "@chromatic-com/storybook",
     "@storybook/addon-vitest",
     "@storybook/addon-a11y",
@@ -14,7 +13,7 @@ const config = {
     "@storybook/addon-mcp",
     "msw-storybook-addon"
   ],
-  "framework": "@storybook/react-vite",
-  "staticDirs": ["../public"]
+  framework: "@storybook/react-vite",
+  staticDirs: ["../public"]
 };
 export default config;

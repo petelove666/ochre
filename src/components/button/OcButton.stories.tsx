@@ -1,4 +1,5 @@
 import { expect } from "storybook/test";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import OcButton from "./OcButton";
 
 const meta = {
@@ -31,29 +32,31 @@ const meta = {
       control: false,
     },
   },
-};
+} satisfies Meta<typeof OcButton>;
 
 export default meta;
 
-export const Default = {
+type Story = StoryObj<typeof meta>;
+
+export const Default: Story = {
   args: {
     children: "Click me",
   },
 };
 
-export const Disabled = {
+export const Disabled: Story = {
   args: {
     children: "Click me",
     disabled: true,
   },
 };
 
-export const ClickHandler = {
+export const ClickHandler: Story = {
   args: {
     children: "Click me",
     onClick: () => {},
   },
-  play: async ({ canvas, args }) => {
+  play: async ({ canvas }) => {
     const button = canvas.getByText("Click me");
     await button.click();
 

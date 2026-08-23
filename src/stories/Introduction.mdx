@@ -4,9 +4,7 @@ import { Meta } from "@storybook/addon-docs/blocks";
 
 # Ochre
 
-Ochre is a React based UI library intended to demonstrate my approach to design systems.
-
-Most design systems I have built have used native web components. These components however are written in React.
+Ochre is a React and Typescript based UI library intended to demonstrate my approach to design systems.
 
 **The main demo page can be found at [Demo page](/story/example-page--default)**
 
@@ -33,13 +31,15 @@ import OcCard from './components/card/OcCard'
 import OcToggle from './components/toggle/OcToggle'
 ```
 
-Theme stylesheets must be imported once, before any component renders (see `src/main.jsx` for the exact order):
+Theme stylesheets must be imported once, before any component renders (see `src/main.tsx` for the exact order):
 
 ```js
 import './theme/brands/ochre/light.css'
 import './theme/brands/ochre/dark.css'
+import './theme/brands/ochre/global.css'
 import './theme/brands/alternative/light.css'
 import './theme/brands/alternative/dark.css'
+import './theme/brands/alternative/global.css'
 import './theme/tokens/light.css'
 import './theme/tokens/dark.css'
 import './theme/tokens/global.css'

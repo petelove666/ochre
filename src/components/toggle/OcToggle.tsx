@@ -1,7 +1,20 @@
 import { useId } from "react";
+import type { ReactNode } from "react";
 import "./OcToggle.css";
 
-export function OcToggle({ name, options = [], selectedValue }) {
+export interface OcToggleOption {
+  label: ReactNode;
+  value: string;
+  selected?: boolean | null;
+}
+
+export interface OcToggleProps {
+  name: string;
+  options?: OcToggleOption[];
+  selectedValue?: string;
+}
+
+export function OcToggle({ name, options = [], selectedValue }: OcToggleProps) {
   const instanceId = useId();
   const resolvedGroupName = `${name}-${instanceId}`;
 

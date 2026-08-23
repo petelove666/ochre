@@ -1,3 +1,4 @@
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import OcComponent from './OcComponent';
 
 const meta = {
@@ -16,11 +17,13 @@ const meta = {
       control: 'text',
     },
   },
-};
+} satisfies Meta<typeof OcComponent>;
 
 export default meta;
 
-export const Default = {
+type Story = StoryObj<typeof meta>;
+
+export const Default: Story = {
   args: {
     children: 'Example content',
   },

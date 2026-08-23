@@ -1,7 +1,0 @@
-import "./OcComponent.css";
-
-export function OcComponent({ children }) {
-	return <div className="oc-component">{children}</div>;
-}
-
-export default OcComponent;
